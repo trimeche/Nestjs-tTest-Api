@@ -42,5 +42,5 @@ jobs:
           # Since the runner is inside your VM, it can run commands directly
           #echo "${{ secrets.MY_GITHUB_TOKEN }}" | docker login ghcr.io -u trimeche --password-stdin
           #docker compose pull
-          docker compose up -d
+          docker-compose up -d
           docker image prune -f
