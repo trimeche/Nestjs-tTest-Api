@@ -31,19 +31,22 @@ jobs:
           push: true
           # Hardcoded image name for testing
           tags: ghcr.io/trimeche/nestjs-api:latest
-
+          
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
-      - name: SSH and Deploy
+      - name: SSH and Deploy via Password
         uses: appleboy/ssh-action@v1.0.3
         with:
-          # These 3 secrets are mandatory for the SSH connection to even start
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          # REMOVE 'key' and USE 'password' instead
+          password: ${{ secrets.SERVER_PASSWORD }} 
           script: |
             cd /home/hamida/test_nest/src
+            # Optional: Login to GHCR on the server if the image is private
+            echo "${{ secrets.MY_GITHUB_TOKEN }}" | docker login ghcr.io -u trimeche --password-stdin
+            docker compose pull
             docker compose up -d
             docker image prune -f
