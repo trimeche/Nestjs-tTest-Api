@@ -26,8 +26,8 @@ jobs:
       - name: Build and Push
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ../../src/Dockerfile
+          context: ./test_nest/src
+          file: ./test_nest/src/Dockerfile
           push: true
           # Hardcoded image name for testing
           tags: ghcr.io/trimeche/nestjs-api:latest
