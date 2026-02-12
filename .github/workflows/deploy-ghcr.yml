@@ -27,7 +27,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: /home/hamida/test_nest/Dockerfile
+          file: ./Dockerfile
           push: true
           # Hardcoded image name for testing
           tags: ghcr.io/trimeche/nestjs-api:latest
