@@ -34,19 +34,13 @@ jobs:
           
   deploy:
     needs: build-and-push
-    runs-on: ubuntu-latest
+    runs-on: self-hosted 
     steps:
-      - name: SSH and Deploy via Password
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USER }}
-          # REMOVE 'key' and USE 'password' instead
-          password: ${{ secrets.SERVER_PASSWORD }} 
-          script: |
-            cd /home/hamida/test_nest/src
-            # Optional: Login to GHCR on the server if the image is private
-            echo "${{ secrets.MY_GITHUB_TOKEN }}" | docker login ghcr.io -u trimeche --password-stdin
-            docker compose pull
-            docker compose up -d
-            docker image prune -f
+      - name: Local Deploy
+        run: |
+          cd /home/hamida/test_nest/src
+          # Since the runner is inside your VM, it can run commands directly
+          #echo "${{ secrets.MY_GITHUB_TOKEN }}" | docker login ghcr.io -u trimeche --password-stdin
+          #docker compose pull
+          docker compose up -d
+          docker image prune -f
