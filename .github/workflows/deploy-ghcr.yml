@@ -45,10 +45,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/hamida/test_nest/src
-            
-            # Use the PAT you created to login on your server
-            echo "${{ secrets.MY_GITHUB_TOKEN }}" | docker login ghcr.io -u trimeche --password-stdin
-            
-       
             docker compose up -d
             docker image prune -f
