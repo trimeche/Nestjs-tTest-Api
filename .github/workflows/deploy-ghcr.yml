@@ -41,6 +41,6 @@ jobs:
           cd /home/hamida/test_nest/src
           # Since the runner is inside your VM, it can run commands directly
           echo "${{ secrets.MY_GITHUB_TOKEN }}" | docker login ghcr.io -u trimeche --password-stdin
-          docker pull ghcr.io/trimeche/nestjs-api:latest
-          /usr/bin/docker-compose up -d
-          docker image prune -f
+          sudo docker pull ghcr.io/trimeche/nestjs-api:latest
+          sudo docker-compose up -d
+          sudo docker image prune -f
